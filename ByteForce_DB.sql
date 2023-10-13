@@ -31,6 +31,7 @@ USE `byteforce`;
 
 CREATE TABLE `location` (
   `location_id` int(11) NOT NULL,
+  `location_name` VARCHAR(100) NOT NULL,
   `description` text DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `admission_fee` float DEFAULT NULL,
