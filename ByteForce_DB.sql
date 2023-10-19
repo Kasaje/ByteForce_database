@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 10:23 AM
+-- Generation Time: Oct 19, 2023 at 05:54 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,7 +34,7 @@ CREATE TABLE `location` (
   `location_name` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
-  `admission_fee` float DEFAULT NULL,
+  `admission_fee` float DEFAULT 0,
   `L_Picture` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -43,9 +43,7 @@ CREATE TABLE `location` (
 --
 
 INSERT INTO `location` (`location_id`, `location_name`, `description`, `address`, `admission_fee`, `L_Picture`) VALUES
-(1, '', ' this is test description', NULL, NULL, NULL),
-(2, 'ตลาดน้ำอโยธยา', 'ไปเที่ยวทั้งทีนอกจากจะต้องไปเดินเที่ยวซึบซับบรรยากาศของจังหวัดต่างๆ\r\nที่ไปแล้ว การกินของอร่อยๆ การช้อปปิ้ง ก็เป็นส่วนสำคัญที่พลาดไม่ได้เลยและถ้าไป\r\nอยุธยาก็ขอแนะนำว่าต้องไปตลาดน้ำอโยธยาเพราะที่นี่นอกจากจะได้บรรยากาศแบบ\r\nอยุธยาดั้งเดิมแล้ว ยังได้ทานของอร่อยๆ เยอะแยะมากมายอีกด้วย  ตลาดน้ำอโยธยามีพื้นที่ประมาณกว่า80ไร่นับเป็นสถานที่ท่องเที่ยวเชิง\r\nอนุรักษ์วัฒนธรรมไทยก่อตั้งขึ้นมาก็ทำให้ที่นี่กลายมาเป็นสถานที่ท่องเที่ยวใจกลาง\r\nเมืองนั่นเอง โดยจะเน้นสะท้อนวิถีชีวิตความเป็นอยู่แบบไทยในสมัยกรุงศรีอยุธยา\r\nไม่ว่าจะเป็นด้านการแต่งกายการแสดงพื้นบ้านการละเล่นของกินของใช้ต่างๆรวมไป\r\nถึงขนบธรรมเนียมประเพณีและสถาปัตยกรรมที่คงความงดงามเป็นเอกลักษณ์ของ\r\nจังหวัดพระนครศรีอยุธยานั่นเอง', '65/19 หมู่ที่ 7ตำบลไผ่ลิงอำเภอพระนครศรีอยุธยาจังหวัดพระนครศรี\r\nอยุธยา  ในประเทศไทย', 0, NULL),
-(3, 'วนอุทยานภูลังกา', 'วนอุทยานภูลังกา อยู่ในเขตป่าสงวนแห่งชาติป่าน้ำเปื๋อย ป่าน้ำหยวนและป่าน้ำลาว และป่าสงวน\r\nแห่งชาติป่าแม่ยม มีเนื้อที่ประมาณ 7,800 ไร่ ด้วยลักษณะที่เป็นยอดเขาสลับซับซ้อนนี้เอง\r\nจึงเหมาะสำหรับนักนิยมธรรมชาติที่ชอบการเดินป่าพิชิตยอดดอยสูง\r\nซึ่งเหมาะสำหรับการชมทิวทัศน์ในช่วงฤดูหนาวเป็นอย่างยิ่ง ', 'อำเภอเชียงคำ และอำเภอปง \r\nจังหวัดพะเยา', 0, NULL);
+(1, 'ดอยผาหมี', 'อากาศเย็นสบายเหมาะแก่การพักผ่อนเป็นอย่างมากบอกเลยว่าไม่ควรพลาดแวะ\r\nชิมกาแฟผาหมี โดยเฉพาะที่ร้านกาแฟดอยผาหมีจะมีทั้งกาแฟสดกาแฟดริปคั่วบดเอง\r\nให้เลือกชิมกันเลย รวมไปถึงมีมุมถ่ายรูปสวยๆอีกด้วยไม่หมดเท่านั้นเพราะมีกิจกรรม\r\nสอนดริปกาแฟด้วยอุปกรณ์จากภูมิปัญญาชาวเขาเพ้นท์แม่เหล็กลูกสะบ้า และยัง\r\nสามารถสั่งอาหารพื้นเมืองของชาวอาข่ามาทานได้อีกด้วย', 'ดอยผาหมี เป็นหมู่บ้านเล็กๆ ที่ตั้งอยู่ใน ต.เวียงพางคำ อ.แม่สาย จ.เชียงราย\r\nเป็นหมู่บ้านของชาวไท', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -59,13 +57,6 @@ CREATE TABLE `location_like` (
   `datetime_like` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `location_like`
---
-
-INSERT INTO `location_like` (`user_id`, `location_id`, `datetime_like`) VALUES
-(2, 1, '2023-09-10 21:42:05');
-
 -- --------------------------------------------------------
 
 --
@@ -78,16 +69,6 @@ CREATE TABLE `review` (
   `datetime_review` datetime DEFAULT current_timestamp(),
   `review_message` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `review`
---
-
-INSERT INTO `review` (`user_id`, `location_id`, `datetime_review`, `review_message`) VALUES
-(1, 2, '2023-10-17 14:44:10', 'สวยมากครับ'),
-(1, 2, '2023-10-17 14:45:00', 'dddd'),
-(1, 2, '2023-10-17 14:45:28', 'สถานที่สวยมากครับ'),
-(1, 2, '2023-10-17 14:45:52', 'สถานที่สวยมากครับ');
 
 -- --------------------------------------------------------
 
@@ -104,25 +85,6 @@ CREATE TABLE `user` (
   `password` varchar(100) DEFAULT NULL,
   `U_Picture` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `username`, `password`, `U_Picture`) VALUES
-(1, 'Namikaze', 'Minato', 'minato@gmail.com', 'minato4', '4444', NULL),
-(2, 'joy', 'patra', 'joy123@gmail.com', 'joy55', 'joy1234', NULL),
-(3, 'kaseamsan', 'keawjeen', NULL, NULL, NULL, NULL),
-(4, 'Uzumaki', 'Naruto', 'naruto@gmail.com', 'naruto777', 'naruto777password', NULL),
-(6, 'pinpa', 'siripapan', 'Yam@gmail.com', 'Yammee', 'yam12345678', NULL),
-(7, 'pongsit', 'komkai', 'Nat@gmail.com', 'Nattee', 'Nattee2345678', NULL),
-(8, 'Tharathip', 'jantaraprakorn', 'Ar@gmail.com', 'Array', 'Array2345', NULL),
-(9, 'Gerard', 'Don', 'Gerard@gmail.com', 'Gerard11', 'Gerard12345678', NULL),
-(10, 'Nareerat', 'nwarasakul', 'minnie@gmail.com', 'Minnieee', 'Minnoname', NULL),
-(11, 'Marty', 'Harry', 'Marty@gmail.com', 'Marty11', 'Marty2345678', NULL),
-(12, 'Tom ', 'Tuu', 'example@gmail.com', 'naruto777', 'naruto777password', '#'),
-(13, 'Tom ', 'Tuu', 'example@gmail.com', 'naruto777', 'naruto777password', '#'),
-(14, 'แซลมอน', 'จนเขิน', 'Salmon@gmail.com', 'Salmonjonkoen', 'salmon12345', '#');
 
 --
 -- Indexes for dumped tables
@@ -168,7 +130,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -187,3 +149,8 @@ ALTER TABLE `location_like`
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
